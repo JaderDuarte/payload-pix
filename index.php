@@ -8,9 +8,9 @@ use Mpdf\QrCode\Output;
 
 // INSTÂNCIA PRINCIPAL DO PAYLOAD PIX
 $obPayload = 
-    (new Payload)->setPixKey('+5531975729291')
-                 ->setDescription('Pagamento de 2 horas de programa  do presente tal')
-                 ->setmerchantName('Jader Duarte')
+    (new Payload)->setPixKey('+5531994936002')
+                 ->setDescription('Pagamento de 2 cotas do presente tal')
+                 ->setmerchantName('Jader Felipe Silva Duarte')
                  ->setmerchantCity('ITABIRA')
                  ->setAmount(134.57)
                  ->setTxid('PAYLOADPIXIDX');
@@ -20,13 +20,19 @@ $payloadQrCode = $obPayload->getPayload();
 
 //QR CODE
 $obQrCode = new Qrcode($payloadQrCode);
+
+//Imagem do QRCODE
 $image = (new output\Png) ->output($obQrCode, 400);
 
-header('Content-Type: image/png');
+?>
 
-echo $image;
+<h1>QR CODE PIX</h1>
 
-echo "<pre>";
-print_r($paylodQrCode);
-echo "</pre>";
-exit;
+<br/>
+
+<img src="data:image/png;base64, <?=base64_encode($image)?>">
+
+<br/><br/>
+
+Código Pix: <br/>
+<strong><?=$payloadQrCode?></strong>
